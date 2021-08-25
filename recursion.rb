@@ -213,3 +213,23 @@ end
 # p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
 # p subsets([1, 2, 3])
 # # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+
+def permutations(array)
+    return [[]] if array.empty?
+
+    grid = []
+    array.each_with_index do |ele, idx|
+        temp = array[0...idx] + array[idx + 1..-1]
+        perms = permutations(temp)
+        perms.each { |perm| grid << [ele] + perm }
+    end
+
+    # perms = permutations(array[0...-1])
+    # perms.each do |perm|
+    #     grid << perm + [array[-1]]
+    # end
+    grid
+end
+
+arr = [1, 2, 3]
+p permutations(arr)
