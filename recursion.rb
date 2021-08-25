@@ -31,5 +31,18 @@ end
 def exp_2(b, n)
     return 1 if n == 0
     return b if n == 1
+    if n.even?
+        # incursive step for when n is even
+        exp_2(b, n / 2) ** 2
+    else
+        # incursive step for when n is odd
+        b * (exp_2(b, (n - 1) / 2) ** 2)
+    end
+end
+
+# p exp_2(2, 2400)
+
+class Array
     
+
 end
