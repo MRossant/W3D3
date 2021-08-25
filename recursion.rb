@@ -195,3 +195,21 @@ end
 # p merge_sort(arr)
 
 
+def subsets(array)
+    return [[]] if array.empty?
+    return [[], array] if array.length == 1
+    subs = subsets(array[1..-1])
+    grid = []
+    subs.each do |el|
+        grid << el
+        grid << [array[0]] + el
+    end
+
+    grid
+end
+
+# p subsets([]) # => [[]]
+# p subsets([1]) # => [[], [1]]
+# p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+# p subsets([1, 2, 3])
+# # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
