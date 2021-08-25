@@ -119,4 +119,55 @@ end
 # p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
 
+def merge(arr_1, arr_2)
+    merged = []
+    (0...arr_1.length).each do |i|
+        if arr_1[i] == nil 
+            if arr_2[i] < arr_1[-1]
+                temp = merged.pop
+                merged << arr_2[i]
+                merged << temp
+            else
+                merged << arr_2[i]
+            end 
+        elsif arr_2[i] == nil
+            if arr_1[i] < arr_2[-1]
+                temp = merged.pop
+                merged << arr_1[i]
+                merged << temp
+            else
+                merged << arr_1[i]
+            end
+        elsif arr_1[i] < arr_2[i]
+            merged << arr_1[i]
+            merged << arr_2[i]
+        else
+            merged << arr_2[i]
+            merged << arr_1[i]
+        end
+    end
+    merged
+end
 
+# arr_1 = [3, 27, 38, 43]
+# arr_2 = [9, 10, 82]
+# arr_1 = [1, 2, 3]
+# arr_2 = [4, 5, 6]
+
+# p merge(arr_1, arr_2)
+
+def merge_sort(arr)
+    return [] if arr.empty?
+    return arr if arr.length == 1
+
+    mid_idx = arr.length / 2
+    left = arr[0...mid_idx]
+    right = arr[mid_idx..-1]
+    left_sorted = merge_sort(left)
+    right_sorted = merge_sort(right)
+    merge(left_sorted, right_sorted)
+
+end
+
+arr = [38, 27, 43, 3, 9, 82, 10]
+p merge_sort(arr)
