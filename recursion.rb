@@ -119,40 +119,63 @@ end
 # p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
 
+# def merge(arr_1, arr_2)
+#     merged = []
+#     length = [arr_1.length, arr_2.length].max
+#     (0...length).each do |i|
+#         if arr_1[i] == nil 
+#             if arr_2[i] < arr_1[-1]
+#                 temp = merged.pop
+#                 merged << arr_2[i]
+#                 merged << temp
+#             else
+#                 merged << arr_2[i]
+#             end 
+#         elsif arr_2[i] == nil
+#             if arr_1[i] < arr_2[-1]
+#                 temp = merged.pop
+#                 merged << arr_1[i]
+#                 merged << temp
+#             else
+#                 merged << arr_1[i]
+#             end
+#         elsif arr_1[i] < arr_2[i]
+#             merged << arr_1[i]
+#             merged << arr_2[i]
+#         else
+#             merged << arr_2[i]
+#             merged << arr_1[i]
+#         end
+#     end
+#     merged
+# end
+
 def merge(arr_1, arr_2)
     merged = []
-    (0...arr_1.length).each do |i|
-        if arr_1[i] == nil 
-            if arr_2[i] < arr_1[-1]
-                temp = merged.pop
-                merged << arr_2[i]
-                merged << temp
-            else
-                merged << arr_2[i]
-            end 
-        elsif arr_2[i] == nil
-            if arr_1[i] < arr_2[-1]
-                temp = merged.pop
-                merged << arr_1[i]
-                merged << temp
-            else
-                merged << arr_1[i]
-            end
-        elsif arr_1[i] < arr_2[i]
-            merged << arr_1[i]
-            merged << arr_2[i]
+
+    arr_1_idx = 0
+    arr_2_idx = 0
+
+    sorted = false
+
+    until sorted
+        if arr_1[arr_1_idx] == nil
+            merged += arr_2[arr_2_idx..-1]
+            sorted = true
+        elsif arr_2[arr_2_idx] == nil
+            merged += arr_1[arr_1_idx..-1]
+            sorted = true
+        elsif arr_1[arr_1_idx] < arr_2[arr_2_idx]
+            merged << arr_1[arr_1_idx]
+            arr_1_idx += 1
         else
-            merged << arr_2[i]
-            merged << arr_1[i]
+            merged << arr_2[arr_2_idx]
+            arr_2_idx += 1
         end
     end
+
     merged
 end
-
-# arr_1 = [3, 27, 38, 43]
-# arr_2 = [9, 10, 82]
-# arr_1 = [1, 2, 3]
-# arr_2 = [4, 5, 6]
 
 # p merge(arr_1, arr_2)
 
@@ -166,8 +189,9 @@ def merge_sort(arr)
     left_sorted = merge_sort(left)
     right_sorted = merge_sort(right)
     merge(left_sorted, right_sorted)
-
 end
 
-arr = [38, 27, 43, 3, 9, 82, 10]
-p merge_sort(arr)
+# arr = [38, 27, 43, 3, 9, 82, 10]
+# p merge_sort(arr)
+
+
