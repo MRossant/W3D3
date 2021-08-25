@@ -93,3 +93,30 @@ end
 # p iter_fib(5)
 # 1 1 2 3 5 8
 
+def bsearch(array, target)
+    return nil if array.empty?
+
+    mid_idx = array.length / 2
+    if array[mid_idx] == target
+        return mid_idx
+    elsif array[mid_idx] > target
+        bsearch(array[0...mid_idx], target)
+    elsif array[mid_idx] < target
+        if bsearch(array[mid_idx + 1..-1], target) == nil
+            return nil
+        else
+            (mid_idx + 1) + bsearch(array[mid_idx + 1..-1], target)
+        end
+    end
+end
+
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
+
+
